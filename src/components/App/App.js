@@ -14,10 +14,11 @@ export default class App extends Component {
             { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
         ],
         name: '',
+        number: '',
     };
 
     handleChange = event => {
-        this.setState({ name: event.target.value });
+        this.setState({ [event.target.name]: event.target.value });
     };
 
     /*
@@ -26,8 +27,10 @@ export default class App extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const name = event.currentTarget.elements.name.value;
+        const number = event.currentTarget.elements.number.value;
         const contactToAdd = {
             name,
+            number,
             id: shortid.generate(),
         };
         this.setState(state => ({
@@ -35,21 +38,33 @@ export default class App extends Component {
         }));
     };
     render() {
-        const { name } = this.state;
+        const { name, number } = this.state;
 
         return (
             <div className={styles.container}>
                 <h1>goit-react-hw-02-phonebook</h1>
                 <Section title="Phonebook">
                     <form onSubmit={this.handleSubmit} className={styles.form}>
-                        <p>Name</p>
-                        <input
-                            type="text"
-                            placeholder="Enter contact`s name"
-                            value={name}
-                            onChange={this.handleChange}
-                            name="name"
-                        />
+                        <div>
+                            <p>Name</p>
+                            <input
+                                type="text"
+                                placeholder="Enter contact`s name"
+                                value={name}
+                                onChange={this.handleChange}
+                                name="name"
+                            />
+                        </div>
+                        <div>
+                            <p>Number</p>
+                            <input
+                                type="text"
+                                placeholder="Enter contact`s name"
+                                value={number}
+                                onChange={this.handleChange}
+                                name="number"
+                            />
+                        </div>
                         <button className={styles.button} type="submit">
                             Add contact
                         </button>
@@ -57,9 +72,9 @@ export default class App extends Component {
                 </Section>
                 <Section title="Contacts">
                     <ul className={styles.list}>
-                        {this.state.contacts.map(({ id, name }) => (
+                        {this.state.contacts.map(({ id, name, number }) => (
                             <li key={id} className={styles.item}>
-                                {name}
+                                {name}: {number}
                             </li>
                         ))}
                     </ul>
