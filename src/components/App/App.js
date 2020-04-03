@@ -4,6 +4,16 @@ import shortid from 'shortid';
 import styles from './App.module.css';
 
 import Section from '../Section/Section';
+import Notification from '../Notification/Notification';
+import ContactsList from '../ContactsList/ContactsList';
+import Filter from '../Filter/Filter';
+import CreateContactForm from '../CreateContactForm/CreateContactForm';
+
+const filterContacts = (contacts, filter) => {
+    return contacts.filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase()),
+    );
+};
 
 export default class App extends Component {
     state = {
@@ -13,71 +23,49 @@ export default class App extends Component {
             { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
             { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
         ],
-        name: '',
-        number: '',
+        filter: '',
     };
 
-    handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    changeFilter = e => {
+        this.setState({ filter: e.target.value });
     };
 
-    /*
-     * Вызывается при отправке формы
-     */
-    handleSubmit = event => {
-        event.preventDefault();
-        const name = event.currentTarget.elements.name.value;
-        const number = event.currentTarget.elements.number.value;
+    addContact = contact => {
+        isUniqueName = this.state.contacts.find(
+            savedContact => savedContact.name === contact.name,
+        );
+
         const contactToAdd = {
-            name,
-            number,
+            ...contact,
             id: shortid.generate(),
         };
         this.setState(state => ({
             contacts: [...state.contacts, contactToAdd],
         }));
     };
+
     render() {
-        const { name, number } = this.state;
+        const { contacts, filter } = this.state;
+        const filteredContacts = filterContacts(contacts, filter);
 
         return (
             <div className={styles.container}>
                 <h1>goit-react-hw-02-phonebook</h1>
                 <Section title="Phonebook">
-                    <form onSubmit={this.handleSubmit} className={styles.form}>
-                        <div>
-                            <p>Name</p>
-                            <input
-                                type="text"
-                                placeholder="Enter contact`s name"
-                                value={name}
-                                onChange={this.handleChange}
-                                name="name"
-                            />
-                        </div>
-                        <div>
-                            <p>Number</p>
-                            <input
-                                type="text"
-                                placeholder="Enter contact`s name"
-                                value={number}
-                                onChange={this.handleChange}
-                                name="number"
-                            />
-                        </div>
-                        <button className={styles.button} type="submit">
-                            Add contact
-                        </button>
-                    </form>
+                    <CreateContactForm onAddContact={this.addContact} />
                 </Section>
                 <Section title="Contacts">
-                    <ul className={styles.list}>
-                        {this.state.contacts.map(({ id, name, number }) => (
-                            <li key={id} className={styles.item}>
-                                {name}: {number}
-                            </li>
-                        ))}
-                    </ul>
+                    {this.state.contacts.length > 2 && (
+                        <Filter
+                            value={filter}
+                            onChangeFilter={this.changeFilter}
+                        />
+                    )}
+                    {filteredContacts.length > 0 ? (
+                        <ContactsList contacts={filteredContacts} />
+                    ) : (
+                        <Notification message="Contacts for query not found" />
+                    )}
                 </Section>
             </div>
         );

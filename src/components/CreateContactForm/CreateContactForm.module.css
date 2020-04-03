@@ -1,0 +1,26 @@
+.form {
+    margin: 0 auto;
+    width: 350px;
+    padding: 0 0 40px;
+    border: 1px solid #3f3b3b;
+    border-radius: 10px;
+    background-color: #e7ecf2;
+}
+
+.form p {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: bold;
+}
+
+.form input {
+    margin-bottom: 15px;
+    height: 20px;
+    padding-left: 10px;
+}
+
+.button {
+    display: block;
+    margin: 0 auto;
+    height: 30px;
+}
