@@ -31,16 +31,25 @@ export default class App extends Component {
     };
 
     addContact = contact => {
-        isUniqueName = this.state.contacts.find(
-            savedContact => savedContact.name === contact.name,
+        const isUniqueName = this.state.contacts.find(
+            savedContact =>
+                savedContact.name.toLowerCase() === contact.name.toLowerCase(),
         );
 
+        if (isUniqueName)
+            return alert(`${contact.name} is already in contacts`);
         const contactToAdd = {
             ...contact,
             id: shortid.generate(),
         };
         this.setState(state => ({
             contacts: [...state.contacts, contactToAdd],
+        }));
+    };
+
+    deleteContact = id => {
+        this.setState(state => ({
+            contacts: state.contacts.filter(contact => contact.id !== id),
         }));
     };
 
@@ -62,7 +71,10 @@ export default class App extends Component {
                         />
                     )}
                     {filteredContacts.length > 0 ? (
-                        <ContactsList contacts={filteredContacts} />
+                        <ContactsList
+                            contacts={filteredContacts}
+                            onDeleteContact={this.deleteContact}
+                        />
                     ) : (
                         <Notification message="Contacts for query not found" />
                     )}

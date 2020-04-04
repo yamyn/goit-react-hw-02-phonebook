@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import { table, row, headrow } from './ContactsList.module.css';
 import ContactsListItem from './ContactsListItem';
 
-const ContactsList = ({ contacts }) => (
+const ContactsList = ({ contacts, onDeleteContact }) => (
     <table className={table}>
         <thead>
             <tr className={`${row} ${headrow}`}>
                 <th>#</th>
                 <th>Name</th>
                 <th>Number</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -23,7 +24,12 @@ const ContactsList = ({ contacts }) => (
                         backgroundColor: `${i % 2 === 1 ? '#fff' : '#ecf2f3'} `,
                     }}
                 >
-                    <ContactsListItem i={i + 1} name={name} number={number} />
+                    <ContactsListItem
+                        i={i + 1}
+                        name={name}
+                        number={number}
+                        onDeleteContact={() => onDeleteContact(id)}
+                    />
                 </tr>
             ))}
         </tbody>
@@ -38,6 +44,7 @@ ContactsList.propTypes = {
             number: PropTypes.string.isRequired,
         }),
     ).isRequired,
+    onDeleteContact: PropTypes.func.isRequired,
 };
 
 export default ContactsList;
