@@ -27,6 +27,7 @@ export default class App extends Component {
         if (savedContacts) {
             this.setState({ contacts: JSON.parse(savedContacts) });
         }
+        return;
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -43,13 +44,14 @@ export default class App extends Component {
     };
 
     addContact = contact => {
-        const isUniqueName = this.state.contacts.find(
+        const isUniqueName = this.state.contacts.some(
             savedContact =>
                 savedContact.name.toLowerCase() === contact.name.toLowerCase(),
         );
 
-        if (isUniqueName)
+        if (isUniqueName) {
             return alert(`${contact.name} is already in contacts`);
+        }
         const contactToAdd = {
             ...contact,
             id: shortid.generate(),
