@@ -16,16 +16,18 @@ const ContactsList = ({ contacts, onDeleteContact }) => (
         </thead>
 
         <tbody>
-            {contacts.map(({ id, name, number }, i) => (
+            {contacts.map(({ id, name, number }, index) => (
                 <tr
                     key={id}
                     className={row}
                     style={{
-                        backgroundColor: `${i % 2 === 1 ? '#fff' : '#ecf2f3'} `,
+                        backgroundColor: `${
+                            index % 2 === 1 ? '#fff' : '#ecf2f3'
+                        } `,
                     }}
                 >
                     <ContactsListItem
-                        i={i + 1}
+                        i={index + 1}
                         name={name}
                         number={number}
                         onDeleteContact={() => onDeleteContact(id)}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { filter } from './Filter.module.css';
 
-const TaskFilter = ({ value, onChangeFilter }) => (
+const NumberFilter = ({ value, onChangeFilter }) => (
     <div className={filter}>
         <p>Find contacts by name</p>
         <input
@@ -14,9 +14,9 @@ const TaskFilter = ({ value, onChangeFilter }) => (
     </div>
 );
 
-TaskFilter.propTypes = {
+NumberFilter.propTypes = {
     value: PropTypes.string.isRequired,
     onChangeFilter: PropTypes.func.isRequired,
 };
 
-export default TaskFilter;
+export default NumberFilter;
