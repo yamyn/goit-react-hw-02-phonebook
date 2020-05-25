@@ -7,7 +7,8 @@
     background-color: #e7ecf2;
 }
 
-.form p {
+.form label {
+    display: block;
     font-size: 18px;
     line-height: 22px;
     font-weight: bold;

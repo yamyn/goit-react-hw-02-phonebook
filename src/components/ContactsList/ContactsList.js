@@ -11,7 +11,7 @@ const ContactsList = ({ contacts, onDeleteContact }) => (
                 <th>#</th>
                 <th>Name</th>
                 <th>Number</th>
-                <th></th>
+                <th />
             </tr>
         </thead>
 
@@ -21,9 +21,7 @@ const ContactsList = ({ contacts, onDeleteContact }) => (
                     key={id}
                     className={row}
                     style={{
-                        backgroundColor: `${
-                            index % 2 === 1 ? '#fff' : '#ecf2f3'
-                        } `,
+                        backgroundColor: `${index % 2 === 1 ? '#fff' : '#ecf2f3'} `,
                     }}
                 >
                     <ContactsListItem
@@ -44,7 +42,7 @@ ContactsList.propTypes = {
             id: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
             number: PropTypes.string.isRequired,
-        }),
+        })
     ).isRequired,
     onDeleteContact: PropTypes.func.isRequired,
 };

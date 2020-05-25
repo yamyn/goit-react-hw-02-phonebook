@@ -10,9 +10,7 @@ import Filter from '../Filter/Filter';
 import CreateContactForm from '../CreateContactForm/CreateContactForm';
 
 const filterContacts = (contacts, filter) => {
-    return contacts.filter(contact =>
-        contact.name.toLowerCase().includes(filter.toLowerCase()),
-    );
+    return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
 };
 
 export default class App extends Component {
@@ -32,11 +30,11 @@ export default class App extends Component {
 
     addContact = contact => {
         const isUniqueName = this.state.contacts.some(
-            savedContact =>
-                savedContact.name.toLowerCase() === contact.name.toLowerCase(),
+            savedContact => savedContact.name.toLowerCase() === contact.name.toLowerCase()
         );
 
         if (isUniqueName) {
+            // eslint-disable-next-line no-alert
             return alert(`${contact.name} is already in contacts`);
         }
         const contactToAdd = {
@@ -46,11 +44,14 @@ export default class App extends Component {
         this.setState(state => ({
             contacts: [...state.contacts, contactToAdd],
         }));
+
+        return null;
     };
 
     deleteContact = id => {
         this.setState(state => ({
             contacts: state.contacts.filter(contact => contact.id !== id),
+            filter: '',
         }));
     };
 
@@ -65,17 +66,9 @@ export default class App extends Component {
                     <CreateContactForm onAddContact={this.addContact} />
                 </Section>
                 <Section title="Contacts">
-                    {this.state.contacts.length > 2 && (
-                        <Filter
-                            value={filter}
-                            onChangeFilter={this.changeFilter}
-                        />
-                    )}
+                    {contacts.length >= 2 && <Filter value={filter} onChangeFilter={this.changeFilter} />}
                     {filteredContacts.length > 0 ? (
-                        <ContactsList
-                            contacts={filteredContacts}
-                            onDeleteContact={this.deleteContact}
-                        />
+                        <ContactsList contacts={filteredContacts} onDeleteContact={this.deleteContact} />
                     ) : (
                         <Notification message="Contacts for query not found" />
                     )}

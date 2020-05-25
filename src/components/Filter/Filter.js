@@ -5,12 +5,7 @@ import { filter } from './Filter.module.css';
 const NumberFilter = ({ value, onChangeFilter }) => (
     <div className={filter}>
         <p>Find contacts by name</p>
-        <input
-            type="text"
-            value={value}
-            onChange={onChangeFilter}
-            placeholder="Enter name..."
-        />
+        <input type="text" value={value} onChange={onChangeFilter} placeholder="Enter name..." />
     </div>
 );
 

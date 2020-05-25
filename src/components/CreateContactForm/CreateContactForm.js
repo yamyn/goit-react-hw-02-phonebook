@@ -34,23 +34,25 @@ export default class TaskEditor extends Component {
         return (
             <form onSubmit={this.handleSubmit} className={form}>
                 <div>
-                    <p>Name</p>
+                    <label htmlFor="name_input">Name</label>
                     <input
                         type="text"
                         placeholder="Enter contact`s name"
                         value={name}
                         onChange={this.handleChange}
                         name="name"
+                        id="name_input"
                     />
                 </div>
                 <div>
-                    <p>Number</p>
+                    <label htmlFor="number_input">Number</label>
                     <input
-                        type="text"
+                        type="number"
                         placeholder="Enter contact`s name"
                         value={number}
                         onChange={this.handleChange}
                         name="number"
+                        id="number_input"
                     />
                 </div>
                 <button className={button} type="submit">
